@@ -1,24 +1,13 @@
 import { useEffect, useRef } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { VIDEOS, screenH } from "./lib";
-import { ScrambleIn } from "./scramble";
 
 export const HERO_SENSITIVITY = 0.8;
 
-export function Hero({ entranceComplete }: { entranceComplete: boolean }) {
+// Hero: SIN animaciones de entrada/salida. Muestra el frame central (la llama)
+// desde que carga, y hace scrub con la posicion X del mouse.
+export function Hero(_props: { entranceComplete: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const exit = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 20,
-    mass: 0.6,
-  });
-  const exitY = useTransform(exit, [0, 1], ["0vh", "55vh"]);
 
   useEffect(() => {
     const v = videoRef.current;
@@ -28,14 +17,23 @@ export function Hero({ entranceComplete }: { entranceComplete: boolean }) {
     const target = { t: 0 };
     let seeking = false;
 
-    // Frame central al cargar metadata -> muestra la llama.
+    // Fuerza el pintado de un cuadro y se posiciona en el frame central.
     const initFrame = () => {
       if (!v.duration) return;
       target.t = v.duration / 2;
-      v.currentTime = target.t;
+      const p = v.play();
+      if (p && typeof p.then === "function") {
+        p.then(() => {
+          v.pause();
+          v.currentTime = target.t;
+        }).catch(() => {
+          v.currentTime = target.t;
+        });
+      } else {
+        v.currentTime = target.t;
+      }
     };
 
-    // Seek encadenado (no perdemos cuadros al mover el mouse).
     const runSeek = () => {
       if (!v.duration) return;
       if (Math.abs(v.currentTime - target.t) < 0.004) {
@@ -46,7 +44,6 @@ export function Hero({ entranceComplete }: { entranceComplete: boolean }) {
       v.currentTime = target.t;
     };
 
-    // Scrub por posicion X del mouse DENTRO del contenedor.
     const onMove = (e: MouseEvent) => {
       if (!v.duration) return;
       const rect = sec.getBoundingClientRect();
@@ -56,25 +53,22 @@ export function Hero({ entranceComplete }: { entranceComplete: boolean }) {
       if (!seeking) runSeek();
     };
 
-    if (v.readyState >= 1) initFrame();
-    v.addEventListener("loadedmetadata", initFrame);
+    if (v.readyState >= 2) initFrame();
+    v.addEventListener("loadeddata", initFrame, { once: true });
     v.addEventListener("seeked", runSeek);
     sec.addEventListener("mousemove", onMove);
 
     return () => {
-      v.removeEventListener("loadedmetadata", initFrame);
+      v.removeEventListener("loadeddata", initFrame);
       v.removeEventListener("seeked", runSeek);
       sec.removeEventListener("mousemove", onMove);
     };
   }, []);
 
   return (
-    <motion.section
+    <section
       ref={sectionRef}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: entranceComplete ? 1 : 0 }}
-      transition={{ duration: 1 }}
-      style={{ ...screenH, y: exitY }}
+      style={screenH}
       className="relative h-screen w-full overflow-hidden flex flex-col px-4 sm:px-6 md:px-8 pt-20 sm:pt-24 pb-8 sm:pb-12"
     >
       <video
@@ -125,36 +119,25 @@ export function Hero({ entranceComplete }: { entranceComplete: boolean }) {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-col gap-4">
             <h1 className="text-white font-light leading-[0.95] tracking-[-0.03em] text-[clamp(40px,10vw,100px)]">
-              <ScrambleIn text="Donde todo" delay={200} triggered={entranceComplete} />
+              Donde todo
               <br />
-              <ScrambleIn text="empezó..." delay={500} triggered={entranceComplete} />
+              empezó...
             </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 25 }}
-              animate={
-                entranceComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }
-              }
-              transition={{ duration: 0.9, delay: 0.2 }}
-              className="max-w-sm text-[13px] sm:text-[15px] text-white/60 leading-relaxed"
-            >
+            <p className="max-w-sm text-[13px] sm:text-[15px] text-white/60 leading-relaxed">
               Fuiste parte de la revolución que transformó un nicho en una
               comunidad. Nos extrañaste, te extrañamos, y el momento de volver a
               encontrarnos ha llegado. Algo grande se está construyendo
-            </motion.p>
+            </p>
           </div>
 
           <h1 className="text-white font-light leading-[0.95] tracking-[-0.03em] text-[clamp(40px,10vw,100px)] text-left md:text-right">
-            <ScrambleIn text="... vuelve" delay={700} triggered={entranceComplete} />
+            ... vuelve
             <br />
-            <ScrambleIn
-              text="a comenzar."
-              delay={1000}
-              triggered={entranceComplete}
-            />
+            a comenzar.
           </h1>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
