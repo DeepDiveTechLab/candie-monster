@@ -9,13 +9,15 @@ export function CinematicText() {
     target: ref,
     offset: ["start end", "end start"],
   });
+  // ~20% mas rapido que antes (stiffness 15 -> 18, mass 1.8 -> 1.5).
   const smooth = useSpring(scrollYProgress, {
-    stiffness: 15,
-    damping: 32,
-    mass: 1.8,
+    stiffness: 18,
+    damping: 30,
+    mass: 1.5,
   });
   const y = useTransform(smooth, [0, 1], [60, -120]);
-  const opacity = useTransform(smooth, [0.3, 0.5], [0, 1]);
+  // El texto ya esta visible al llegar a la seccion (revela antes: 0.1 -> 0.25).
+  const opacity = useTransform(smooth, [0.1, 0.25], [0, 1]);
   const transform = useMotionTemplate`rotateX(24deg) translateY(${y}px) translateZ(15px)`;
 
   return (

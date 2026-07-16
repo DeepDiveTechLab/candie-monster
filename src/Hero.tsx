@@ -5,9 +5,9 @@ import { ScrambleIn } from "./scramble";
 
 export const HERO_SENSITIVITY = 0.8;
 
-// El video se reproduce en loop (siempre visible desde que carga).
-// Al mover el mouse dentro de la seccion se pausa y hace scrub por posicion X;
-// al salir el cursor, vuelve a reproducirse.
+// El video va en loop (siempre visible). Al mover el mouse dentro de la seccion
+// se pausa y hace scrub por posicion X, con encadenado de 'seeked' para no
+// perder cuadros; al salir el cursor, retoma el loop.
 export function Hero(_props: { entranceComplete: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -17,24 +17,50 @@ export function Hero(_props: { entranceComplete: boolean }) {
     const sec = sectionRef.current;
     if (!v || !sec) return;
 
+    let targetT = 0;
+    let seeking = false;
+    let scrubbing = false;
+
+    const runSeek = () => {
+      if (!v.duration) return;
+      if (Math.abs(v.currentTime - targetT) < 0.01) {
+        seeking = false;
+        return;
+      }
+      seeking = true;
+      v.currentTime = targetT;
+    };
+
+    const onSeeked = () => {
+      if (scrubbing) runSeek();
+      else seeking = false;
+    };
+
     const onMove = (e: MouseEvent) => {
       if (!v.duration) return;
-      v.pause();
+      scrubbing = true;
+      if (!v.paused) v.pause();
       const rect = sec.getBoundingClientRect();
       const relX = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
-      const t = (relX - 0.5) * HERO_SENSITIVITY * v.duration + v.duration / 2;
-      v.currentTime = Math.min(v.duration - 0.05, Math.max(0, t));
+      targetT = Math.min(
+        v.duration - 0.05,
+        Math.max(0, (relX - 0.5) * HERO_SENSITIVITY * v.duration + v.duration / 2)
+      );
+      if (!seeking) runSeek();
     };
 
     const onLeave = () => {
+      scrubbing = false;
       const p = v.play();
       if (p && typeof p.catch === "function") p.catch(() => {});
     };
 
+    v.addEventListener("seeked", onSeeked);
     sec.addEventListener("mousemove", onMove);
     sec.addEventListener("mouseleave", onLeave);
 
     return () => {
+      v.removeEventListener("seeked", onSeeked);
       sec.removeEventListener("mousemove", onMove);
       sec.removeEventListener("mouseleave", onLeave);
     };
