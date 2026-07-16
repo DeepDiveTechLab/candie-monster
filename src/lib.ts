@@ -1,13 +1,19 @@
 import type { CSSProperties } from "react";
 
-// Rutas LOCALES (public/videos). OJO: en Vercel/Linux distinguen mayusculas,
-// por eso los nombres deben coincidir EXACTAMENTE con los archivos subidos.
+// Fuentes de video. Se usan las URLs remotas de CloudFront (206 + rango + CORS),
+// que estan disponibles y completas. Para usar archivos locales en su lugar,
+// sube los .mp4 reales a public/videos/ (por git, sin LFS) y cambia estas rutas
+// a "/videos/Hero_llama_video.mp4", etc. (respetando mayusculas).
 export const VIDEOS = {
-  hero: "/videos/Hero_llama_video.mp4",
-  cinematic: "/videos/Cinematics_video.mp4",
-  metrics: "/videos/Metrics_video.mp4",
-  technology: "/videos/Technology_video.mp4",
-  footer: "/videos/Footer_video.mp4",
+  hero: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_083515_290e5a10-0b95-41af-a5e2-32b6389baa4d.mp4",
+  cinematic:
+    "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_092455_089c54f8-3b03-4966-9df1-e9746063d0ef.mp4",
+  metrics:
+    "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_095810_ecea3dd2-fc5e-4e41-8696-4219290b6589.mp4",
+  technology:
+    "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_095750_32a52ce0-2005-45c9-9093-41f03fde9530.mp4",
+  footer:
+    "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_080203_fd7f4f85-3a86-4837-8192-85e7bfe68e75.mp4",
 };
 
 export const SCRAMBLE_CHARS =
