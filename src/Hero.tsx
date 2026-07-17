@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { VIDEOS, screenH } from "./lib";
+import { VIDEOS, toMp4, screenH } from "./lib";
 import { ScrambleIn } from "./scramble";
 
 export const HERO_SENSITIVITY = 0.8;
@@ -74,14 +74,16 @@ export function Hero(_props: { entranceComplete: boolean }) {
     >
       <video
         ref={videoRef}
-        src={VIDEOS.hero}
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
-        className="absolute inset-0 w-full h-full object-cover -z-10"
-      />
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src={VIDEOS.hero} type="video/webm" />
+        <source src={toMp4(VIDEOS.hero)} type="video/mp4" />
+      </video>
 
       <div
         className="pointer-events-none absolute inset-0"
@@ -116,7 +118,7 @@ export function Hero(_props: { entranceComplete: boolean }) {
         </span>
       </div>
 
-      <div className="relative flex flex-col flex-1">
+      <div className="relative z-10 flex flex-col flex-1">
         <div className="flex-1" />
 
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
