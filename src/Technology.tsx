@@ -50,7 +50,7 @@ export function Technology() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 1.0, delay: 0.2 }}
-          className="text-white/50 text-[13px] sm:text-[15px] leading-relaxed max-w-xs md:text-right md:pt-2"
+          className="text-white/70 md:text-white/50 text-[13px] sm:text-[15px] leading-relaxed max-w-xs md:text-right md:pt-2"
         >
           Volvemos para perfeccionar cada detalle de tu experiencia, anticipando
           tus búsquedas y personalizando tus elecciones como nunca antes. No es
@@ -79,7 +79,7 @@ export function Technology() {
             <h3 className="text-white text-[14px] sm:text-[16px] font-normal mb-2">
               {item.title}
             </h3>
-            <p className="text-white/40 text-[12px] sm:text-[14px] leading-relaxed">
+            <p className="text-white/60 md:text-white/40 text-[12px] sm:text-[14px] leading-relaxed">
               {item.desc}
             </p>
           </motion.div>

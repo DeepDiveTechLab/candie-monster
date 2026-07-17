@@ -15,13 +15,16 @@ export function Metrics() {
         src={VIDEOS.metrics}
         className="absolute inset-0 w-full h-full object-cover"
       />
+      {/* Oscurecido solo en movil: los numeros y labels resaltan sobre el video */}
+      <div className="pointer-events-none absolute inset-0 bg-black/45 md:hidden" />
+
       <div className="relative z-10 w-full max-w-6xl mx-auto pt-32 pb-32 px-6">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 1.2 }}
-          className="text-white/40 text-[13px] sm:text-[14px] tracking-[0.2em] uppercase mb-20 text-center"
+          className="text-white/70 md:text-white/40 text-[13px] sm:text-[14px] tracking-[0.2em] uppercase mb-20 text-center"
         >
           Experiencia de Compra
         </motion.p>
@@ -39,7 +42,7 @@ export function Metrics() {
               <div className="text-white text-[clamp(48px,10vw,96px)] font-light tracking-[-0.04em] leading-none">
                 {m.value}
               </div>
-              <div className="text-white/40 text-[13px] sm:text-[15px] mt-4 tracking-wide">
+              <div className="text-white/70 md:text-white/40 text-[13px] sm:text-[15px] mt-4 tracking-wide">
                 {m.label}
               </div>
             </motion.div>
