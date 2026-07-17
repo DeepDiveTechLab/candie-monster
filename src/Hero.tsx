@@ -118,6 +118,15 @@ export function Hero(_props: { entranceComplete: boolean }) {
         </span>
       </div>
 
+      {/* Degradado inferior solo en movil: mejora la lectura del texto sobre el video */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 md:hidden"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(1,1,3,0.9) 0%, rgba(1,1,3,0.5) 45%, transparent 100%)",
+        }}
+      />
+
       <div className="relative z-10 flex flex-col flex-1">
         <div className="flex-1" />
 
@@ -133,7 +142,7 @@ export function Hero(_props: { entranceComplete: boolean }) {
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.2 }}
-              className="max-w-sm text-[13px] sm:text-[15px] text-white/60 leading-relaxed"
+              className="max-w-sm text-[13px] sm:text-[15px] text-white/75 md:text-white/60 leading-relaxed"
             >
               Fuiste parte de la revolución que transformó un nicho en una
               comunidad. Nos extrañaste, te extrañamos, y el momento de volver a
