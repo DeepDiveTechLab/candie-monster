@@ -1,14 +1,17 @@
 import type { CSSProperties } from "react";
 
-// Fuentes de video: archivos locales en public/videos/ (binarios reales servidos
-// por Vercel). Los nombres respetan mayusculas (Linux distingue mayus/minus).
+// Fuente primaria en WebM (mucho mas ligera). El mp4 del mismo nombre se usa
+// como fallback (Safari/iOS) derivandolo de esta ruta en los componentes.
 export const VIDEOS = {
-  hero: "/videos/Hero_llama_video.mp4",
-  cinematic: "/videos/Cinematics_video.mp4",
-  metrics: "/videos/Metrics_video.mp4",
-  technology: "/videos/Technology_video.mp4",
-  footer: "/videos/Footer_video.mp4",
+  hero: "/videos/Hero_llama_video.webm",
+  cinematic: "/videos/Cinematics_video.webm",
+  metrics: "/videos/Metrics_video.webm",
+  technology: "/videos/Technology_video.webm",
+  footer: "/videos/Footer_video.webm",
 };
+
+// Deriva la ruta .mp4 a partir de la .webm (mismo nombre base).
+export const toMp4 = (src: string) => src.replace(/\.webm($|\?)/, ".mp4$1");
 
 export const SCRAMBLE_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~|}{[]:;?><";

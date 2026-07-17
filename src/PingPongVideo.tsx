@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { toMp4 } from "./lib";
 
 // Video en loop "pingpong" (adelante y luego reversa, infinito).
 // Solo corre cuando la seccion esta visible en pantalla, para no saturar
@@ -81,12 +82,14 @@ export function PingPongVideo({
   return (
     <video
       ref={ref}
-      src={src}
       autoPlay
       muted
       playsInline
       preload="auto"
       className={className}
-    />
+    >
+      <source src={src} type="video/webm" />
+      <source src={toMp4(src)} type="video/mp4" />
+    </video>
   );
 }
