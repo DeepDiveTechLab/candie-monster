@@ -5,9 +5,9 @@ import { ScrambleIn } from "./scramble";
 
 export const HERO_SENSITIVITY = 0.8;
 
-// El video va en loop (siempre visible). Al mover el mouse dentro de la seccion
-// se pausa y hace scrub por posicion X, con encadenado de 'seeked' para no
-// perder cuadros; al salir el cursor, retoma el loop.
+// El video va en loop (siempre visible). Con mouse (desktop) o con arrastre
+// horizontal del dedo (movil) se pausa y hace scrub por posicion X, con
+// encadenado de 'seeked'. Al soltar / salir el cursor, retoma el loop.
 export function Hero(_props: { entranceComplete: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -20,6 +20,9 @@ export function Hero(_props: { entranceComplete: boolean }) {
     let targetT = 0;
     let seeking = false;
     let scrubbing = false;
+
+    const clamp = (n: number, lo: number, hi: number) =>
+      Math.min(hi, Math.max(lo, n));
 
     const runSeek = () => {
       if (!v.duration) return;
@@ -36,33 +39,80 @@ export function Hero(_props: { entranceComplete: boolean }) {
       else seeking = false;
     };
 
-    const onMove = (e: MouseEvent) => {
-      if (!v.duration) return;
-      scrubbing = true;
-      if (!v.paused) v.pause();
+    const seekToClientX = (clientX: number) => {
       const rect = sec.getBoundingClientRect();
-      const relX = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
-      targetT = Math.min(
-        v.duration - 0.05,
-        Math.max(0, (relX - 0.5) * HERO_SENSITIVITY * v.duration + v.duration / 2)
+      const relX = clamp((clientX - rect.left) / rect.width, 0, 1);
+      targetT = clamp(
+        (relX - 0.5) * HERO_SENSITIVITY * v.duration + v.duration / 2,
+        0,
+        v.duration - 0.05
       );
+      if (!scrubbing) {
+        scrubbing = true;
+        if (!v.paused) v.pause();
+      }
       if (!seeking) runSeek();
     };
 
-    const onLeave = () => {
+    const resume = () => {
+      if (!scrubbing) return;
       scrubbing = false;
       const p = v.play();
       if (p && typeof p.catch === "function") p.catch(() => {});
     };
 
+    // Desktop (mouse)
+    const onMouseMove = (e: MouseEvent) => {
+      if (!v.duration) return;
+      seekToClientX(e.clientX);
+    };
+    const onMouseLeave = () => resume();
+
+    // Movil (touch): solo si el gesto es horizontal, para no bloquear el scroll
+    let startX = 0;
+    let startY = 0;
+    let horizontal = false;
+    let decided = false;
+    const onTouchStart = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (!t) return;
+      startX = t.clientX;
+      startY = t.clientY;
+      horizontal = false;
+      decided = false;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (!t || !v.duration) return;
+      if (!decided) {
+        const dx = Math.abs(t.clientX - startX);
+        const dy = Math.abs(t.clientY - startY);
+        if (dx + dy > 8) {
+          decided = true;
+          horizontal = dx > dy;
+        }
+      }
+      if (!horizontal) return;
+      seekToClientX(t.clientX);
+    };
+    const onTouchEnd = () => resume();
+
     v.addEventListener("seeked", onSeeked);
-    sec.addEventListener("mousemove", onMove);
-    sec.addEventListener("mouseleave", onLeave);
+    sec.addEventListener("mousemove", onMouseMove);
+    sec.addEventListener("mouseleave", onMouseLeave);
+    sec.addEventListener("touchstart", onTouchStart, { passive: true });
+    sec.addEventListener("touchmove", onTouchMove, { passive: true });
+    sec.addEventListener("touchend", onTouchEnd);
+    sec.addEventListener("touchcancel", onTouchEnd);
 
     return () => {
       v.removeEventListener("seeked", onSeeked);
-      sec.removeEventListener("mousemove", onMove);
-      sec.removeEventListener("mouseleave", onLeave);
+      sec.removeEventListener("mousemove", onMouseMove);
+      sec.removeEventListener("mouseleave", onMouseLeave);
+      sec.removeEventListener("touchstart", onTouchStart);
+      sec.removeEventListener("touchmove", onTouchMove);
+      sec.removeEventListener("touchend", onTouchEnd);
+      sec.removeEventListener("touchcancel", onTouchEnd);
     };
   }, []);
 
