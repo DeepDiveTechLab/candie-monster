@@ -53,11 +53,11 @@ export function Navbar({ entranceComplete }: { entranceComplete: boolean }) {
                   className="flex items-center gap-5 pl-4 pr-2 whitespace-nowrap"
                 >
                   <NavLink
-                    label="Nosotros"
+                    label="Cobertura"
                     onClick={() => scrollToY(window.innerHeight)}
                   />
                   <NavLink
-                    label="Relanzamiento"
+                    label="Compras"
                     onClick={() => scrollToY(window.innerHeight * 2)}
                   />
                 </motion.div>
