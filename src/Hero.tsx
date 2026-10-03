@@ -150,7 +150,7 @@ export function Hero(_props: { entranceComplete: boolean }) {
       >
         <span
           style={{
-            fontFamily: '"Anton SC", sans-serif',
+            fontFamily: '"Cal Sans", sans-serif',
             fontSize: "clamp(120px, 30vw, 521px)",
             textTransform: "uppercase",
             letterSpacing: "-4px",
@@ -175,7 +175,7 @@ export function Hero(_props: { entranceComplete: boolean }) {
           background:
             "linear-gradient(to top, rgba(1,1,3,0.9) 0%, rgba(1,1,3,0.5) 45%, transparent 100%)",
         }}
-      />
+      />p
 
       <div className="relative z-10 flex flex-col flex-1">
         <div className="flex-1" />
@@ -194,8 +194,7 @@ export function Hero(_props: { entranceComplete: boolean }) {
               transition={{ duration: 0.9, delay: 0.2 }}
               className="max-w-sm text-[13px] sm:text-[15px] text-white/75 md:text-white/60 leading-relaxed"
             >
-              Fuiste parte de la revolución que transformó un nicho en una
-              comunidad. Nos extrañaste, te extrañamos, y el momento de volver a
+              Fuiste parte de la revolución que transformó la forma de divertirse. Nos extrañaste, te extrañamos, y el momento de volver a
               encontrarnos ha llegado. Algo grande se está construyendo
             </motion.p>
           </div>
