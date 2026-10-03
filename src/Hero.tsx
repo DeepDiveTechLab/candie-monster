@@ -194,8 +194,8 @@ export function Hero(_props: { entranceComplete: boolean }) {
               transition={{ duration: 0.9, delay: 0.2 }}
               className="max-w-sm text-[13px] sm:text-[15px] text-white/75 md:text-white/60 leading-relaxed"
             >
-              Fuiste parte de la revolución que transformó la forma de divertirse. Nos echaste de menos, te echamos de menos, y el momento de reencontrarnos
-              ha llegado. ¡Algo grande se está construyendo!
+              Fuiste parte de la revolución que transformó la forma de divertirse. Nos echaste de menos, te echamos de menos, y el momento de encontrarnos
+              de nuevo ha llegado. ¡Algo extraordinario está por suceder!
             </motion.p>
           </div>
 
