@@ -3,9 +3,11 @@ import { VIDEOS } from "./lib";
 import { PingPongVideo } from "./PingPongVideo";
 
 export const METRICS = [
-  { value: "32 entidades", label: "Cobertura Nacional" },
-  { value: "100%", label: "Pureza de Producto" },
-  { value: "6", label: "Tiendas en linea" },
+  { value: "6 must-wanted Monsters", label: "Los dulces anfitriones de la fiesta, calidad y pureza inigualable." },
+  { value: "Retail or Wholesale", label: "Precio competitivo por unidad; Precio extraordinario en paquete" },
+  { value: "Your favorite payment methods", label: "Escoge si pagar con tarjeta de Debito/Credito, transfer, Apple Pay*, Google Pay* o Efectivo*" },
+  { value: "Shippings anywhere in Mexico", label: "Envios en todo el pais en modalidad estandar (~1 semana), Express (~3 dias) o Priority (24 hrs)" },
+];
 ];
 
 export function Metrics() {
@@ -26,7 +28,7 @@ export function Metrics() {
           transition={{ duration: 1.2 }}
           className="text-white/70 md:text-white/40 text-[13px] sm:text-[14px] tracking-[0.2em] uppercase mb-20 text-center"
         >
-          Experiencia de Compra
+          Whiz-Biz
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
