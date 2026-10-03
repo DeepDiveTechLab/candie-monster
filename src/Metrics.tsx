@@ -4,9 +4,9 @@ import { PingPongVideo } from "./PingPongVideo";
 
 export const METRICS = [
   { id: "monsters", value: "6 Monsters", label: "Los dulces anfitriones de la fiesta." },
-  { id: "wholesale", value: "Mas por menos", label: "Packs y Sets a precio extraordinario" },
-  { id: "payments", value: "Decide como pagar", label: "Debito/Credito, Apple Pay*, G-Pay* o Efectivo*" },
-  { id: "shippings", value: "Envios a todo Mexico", label: "Standard(1 sem), Fast(3 dias) o Xpress(24 hrs)" },
+  { id: "wholesale", value: "Mas X menos", label: "Packs y Sets a precio extraordinario" },
+  { id: "payments", value: "Decide como pagar", label: "Debito/Credito, Apple/Google Pay* o Cash*" },
+  { id: "shippings", value: "En todo México", label: "Standard (1sem), Fast (3d) o Xpress (24hrs)" },
 ]; // <-- Corregido: Se eliminó el cierre duplicado
 
 export function Metrics() {
