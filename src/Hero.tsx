@@ -175,7 +175,7 @@ export function Hero(_props: { entranceComplete: boolean }) {
           background:
             "linear-gradient(to top, rgba(1,1,3,0.9) 0%, rgba(1,1,3,0.5) 45%, transparent 100%)",
         }}
-      />p
+      />
 
       <div className="relative z-10 flex flex-col flex-1">
         <div className="flex-1" />
