@@ -3,10 +3,10 @@ import { VIDEOS } from "./lib";
 import { PingPongVideo } from "./PingPongVideo";
 
 export const METRICS = [
-  { value: "6 must-wanted Monsters", label: "Los dulces anfitriones de la fiesta, calidad y pureza inigualable." },
-  { value: "Retail or Wholesale", label: "Precio competitivo por unidad; Precio extraordinario en paquete" },
-  { value: "Your favorite payment methods", label: "Escoge si pagar con tarjeta de Debito/Credito, transfer, Apple Pay*, Google Pay* o Efectivo*" },
-  { value: "Shippings anywhere in Mexico", label: "Envios en todo el pais en modalidad estandar (~1 semana), Express (~3 dias) o Priority (24 hrs)" },
+  { value: "6 must-wanted Monsters", label: "Los dulces anfitriones de la fiesta, calidad y pureza inigualable.", id : "1" },
+  { value: "Retail or Wholesale", label: "Precio competitivo por unidad; Precio extraordinario en paquete.", id : "2" },
+  { value: "Your favorite payment methods", label: "Escoge si pagar con tarjeta de Debito/Credito, transfer, Apple Pay*, Google Pay* o Efectivo.*", id : "3" },
+  { value: "Shippings anywhere in Mexico", label: "Envios en todo el pais en modalidad estandar (~1 semana), Express (~3 dias) o Priority (24 hrs).", id : "4" },
 ]; // <-- Corregido: Se eliminó el cierre duplicado
 
 export function Metrics() {
@@ -34,7 +34,7 @@ export function Metrics() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-8">
           {METRICS.map((m, i) => (
             <motion.div
-              key={m.label}
+              key={m.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
