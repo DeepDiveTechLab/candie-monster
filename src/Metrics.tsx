@@ -7,8 +7,7 @@ export const METRICS = [
   { value: "Retail or Wholesale", label: "Precio competitivo por unidad; Precio extraordinario en paquete" },
   { value: "Your favorite payment methods", label: "Escoge si pagar con tarjeta de Debito/Credito, transfer, Apple Pay*, Google Pay* o Efectivo*" },
   { value: "Shippings anywhere in Mexico", label: "Envios en todo el pais en modalidad estandar (~1 semana), Express (~3 dias) o Priority (24 hrs)" },
-];
-];
+]; // <-- Corregido: Se eliminó el cierre duplicado
 
 export function Metrics() {
   return (
@@ -31,7 +30,8 @@ export function Metrics() {
           Whiz-Biz
         </motion.p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
+        {/* Corregido: md:grid-cols-2 y lg:grid-cols-4 para acomodar los 4 elementos perfectamente */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-8">
           {METRICS.map((m, i) => (
             <motion.div
               key={m.label}
@@ -41,7 +41,7 @@ export function Metrics() {
               transition={{ duration: 0.8, delay: i * 0.15 }}
               className="text-center"
             >
-              <div className="text-white text-[clamp(48px,10vw,96px)] font-light tracking-[-0.04em] leading-none">
+              <div className="text-white text-[clamp(32px,6vw,64px)] font-light tracking-[-0.04em] leading-none">
                 {m.value}
               </div>
               <div className="text-white/70 md:text-white/40 text-[13px] sm:text-[15px] mt-4 tracking-wide">
