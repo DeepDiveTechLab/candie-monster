@@ -53,12 +53,20 @@ export function Navbar({ entranceComplete }: { entranceComplete: boolean }) {
                   className="flex items-center gap-5 pl-4 pr-2 whitespace-nowrap"
                 >
                   <NavLink
-                    label="Cobertura"
+                    label="Relaunch"
                     onClick={() => scrollToY(window.innerHeight)}
                   />
                   <NavLink
-                    label="Compras"
+                    label="Crew"
                     onClick={() => scrollToY(window.innerHeight * 2)}
+                  />
+                  <NavLink
+                    label="Purchase"
+                    onClick={() => scrollToY(window.innerHeight * 3)}
+                  />
+                  <NavLink
+                    label="Store"
+                    onClick={() => scrollToY(window.innerHeight * 4)}
                   />
                 </motion.div>
               )}
@@ -108,13 +116,25 @@ export function Navbar({ entranceComplete }: { entranceComplete: boolean }) {
                     onClick={() => scrollToY(window.innerHeight)}
                     className="text-[13px] text-white/85 hover:text-white"
                   >
-                    Nosotros
+                    Relaunch
                   </button>
                   <button
                     onClick={() => scrollToY(window.innerHeight * 2)}
                     className="text-[13px] text-white/85 hover:text-white"
                   >
-                    Relanzamiento
+                    Crew
+                  </button>
+                  <button
+                    onClick={() => scrollToY(window.innerHeight * 3)}
+                    className="text-[13px] text-white/85 hover:text-white"
+                  >
+                    Purchase
+                  </button>
+                  <button
+                    onClick={() => scrollToY(window.innerHeight * 4)}
+                    className="text-[13px] text-white/85 hover:text-white"
+                  >
+                    Store
                   </button>
                 </motion.div>
               )}
