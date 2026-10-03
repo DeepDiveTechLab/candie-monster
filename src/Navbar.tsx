@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CandieLogo, SquashHamburger, NavLink, DownloadButton } from "./ui";
+import { CandieLogo, SquashHamburger, NavLink } from "./ui";
 import { scrollToY } from "./lib";
 
 export function Navbar({ entranceComplete }: { entranceComplete: boolean }) {
@@ -73,8 +73,6 @@ export function Navbar({ entranceComplete }: { entranceComplete: boolean }) {
             </AnimatePresence>
           </motion.div>
         </div>
-
-        <DownloadButton />
       </div>
 
       <div className="flex sm:hidden items-center justify-between h-full px-4">
