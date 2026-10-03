@@ -139,8 +139,7 @@ export function Navbar({ entranceComplete }: { entranceComplete: boolean }) {
             </AnimatePresence>
           </motion.div>
         </div>
-
-        <DownloadButton mobile />
+        {/* Corregido: Se removió la etiqueta DownloadButton huérfana de aquí */}
       </div>
     </motion.nav>
   );
