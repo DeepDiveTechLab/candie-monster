@@ -43,9 +43,9 @@ export function CinematicText() {
           style={{ transform, opacity }}
           className="font-sans font-normal text-[22px] sm:text-[30px] md:text-[36px] lg:text-[42px] text-white leading-[1.35] tracking-[-0.02em] select-none px-6 sm:px-12 text-center"
         >
-          Hicimos historia una vez y estamos mas que listos para reescribirla. El lugar
+          Hicimos historia una vez y estamos más que listos para reescribirla. El lugar
           que cambió las reglas del juego regresa para transformar tu mundo otra
-          vez.¿Te acuerdas de la primera vez que compraste algún 'monster'?
+          vez.¿Te acuerdas de tu primer 'monster' ever?
           Prepárate para revivir esa emoción. Volvemos a las raíces para cambiar
           el futuro. No es un regreso. Es la evolución de la leyenda.
         </motion.p>
