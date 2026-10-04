@@ -45,7 +45,7 @@ export function CinematicText() {
         >
           Hicimos historia una vez y estamos más que listos para reescribirla. El lugar
           que cambió las reglas del juego regresa para transformar tu mundo otra
-          vez.¿Te acuerdas de tu primer 'monster' ever y de la experiencia que viviste?
+          vez.¿Te acuerdas de tu primer 'monster' ever y de la experiencia que te hizo vivir?
           Bueno, pues prepárate para revivir esa emoción. Volvemos a las raíces para cambiar
           el futuro. No es un regreso. Es la evolución de la leyenda.
         </motion.p>
